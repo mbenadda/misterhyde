@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
 		function (item, callback) {
 			callback(null, _.omit(
 				item,
-				'content')
+				['content', 'index'])
 			);
 		},
 		function (err, results) {

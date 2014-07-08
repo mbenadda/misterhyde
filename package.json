@@ -4,9 +4,10 @@
   "description": "Server-side of Jekyll back-office app Mister Hyde",
   "main": "index.js",
   "dependencies": {
+    "async": "^0.9.0",
+    "clone": "^0.1.17",
     "express": "^4.4.1",
-    "underscore": "^1.6.0",
-    "async": "^0.9.0"
+    "underscore": "^1.6.0"
   },
   "devDependencies": {},
   "scripts": {

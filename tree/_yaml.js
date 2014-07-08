@@ -18,7 +18,7 @@ function parse (file, callback) {
 				});
 				
 			} catch (e) {
-				docs.push(data);
+				throw e;
 			}
 			callback(null, docs);
 		}

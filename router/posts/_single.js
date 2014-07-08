@@ -1,5 +1,6 @@
 var app = require('../../app');
 var async = require('async');
+var _ = require('underscore');
 
 module.exports = function (req, res, next) {
 
@@ -13,7 +14,9 @@ module.exports = function (req, res, next) {
 			} else if (results.length > 1) {
 				res.json(409)
 			} else {
-				res.json(200, results[0]);
+				res.json(200, _.omit(
+					results[0],
+					'index'));
 			}
 		})
 

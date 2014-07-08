@@ -21,7 +21,7 @@ function walkTheSite (pathToJekyll, callback) {
 			// Only select posts
 			async.filter(index, require('./_filter')('_posts', pathToJekyll), function (_posts_index) {
 				
-				async.map(_posts_index, yaml.parse, function (err, _posts_content) {
+				async.mapSeries(_posts_index, yaml.parse, function (err, _posts_content) {
 					if (err) throw err;
 
 					_posts = [];
@@ -29,8 +29,10 @@ function walkTheSite (pathToJekyll, callback) {
 						_posts.push({
 							key: _posts_index[i].substring(_posts_index[i].indexOf('_posts')+7, _posts_index[i].length-3),
 							meta: _posts_content[i][0] || null,
-							content: _posts_content[i][1]
+							content: _posts_content[i][1],
+							index : _posts_index[i]
 						})	
+
 					}
 
 					site.posts = _posts;
