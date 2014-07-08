@@ -1,9 +1,15 @@
 var yaml = require('js-yaml');
 var fs = require('fs');
+var _ = require('underscore');
+
 var clean = require('../clean').post;
+var recur = require('../recur');
 
-module.exports = function (post, callback) {
+var save = function (post, callback) {
 
+	recur.escape(post);
+
+	// Remove added properties from the object
 	var cleanPost = clean(post);
 
 	fs.writeFile(
@@ -16,7 +22,12 @@ module.exports = function (post, callback) {
 		+ '"', // Also " must be escaped in content
 		function (err) {
 			if (err) throw err;
+
+			recur.unescape(post);
+
 			if (callback) callback(null);
 		}
-	) 
+	)	 
 }
+
+module.exports = save;

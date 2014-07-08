@@ -1,6 +1,5 @@
 var clone = require('clone');
 
-
 var post = function (post) {
 
 	var newPost = clone(post);

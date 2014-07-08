@@ -1,6 +1,8 @@
-var app = require('../../app');
 var async = require('async');
 var _ = require('underscore');
+
+var app = require('../../app');
+var recur = require('../../modules/recur');
 
 module.exports = function (req, res, next) {
 
@@ -14,8 +16,10 @@ module.exports = function (req, res, next) {
 			} else if (results.length > 1) {
 				res.json(409)
 			} else {
+				response = recur.unescape(results[0]);
+
 				res.json(200, _.omit(
-					results[0],
+					response,
 					'index'));
 			}
 		})

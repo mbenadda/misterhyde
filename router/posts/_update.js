@@ -1,10 +1,9 @@
 var async = require('async');
 var _ = require('underscore');
-_.recurExtendObject = require('../../modules/recurExtendObject');
-// Unlike the underscore one, accepts only one source
 
 var app = require('../../app');
-var save = require('../../modules/save');
+var recur = require('../../modules/recur'); // Unlike the underscore one, accepts only one source
+var save = require('../../modules/save').post;
 
 module.exports = function (req, res, next) {
 	async.filter(app.get('jekyll').posts,
@@ -17,15 +16,13 @@ module.exports = function (req, res, next) {
 			} else if (results.length > 1) {
 				res.json(409)
 			} else {
-				var post = _.recurExtendObject(results[0], req.body)
+				var post = recur.extendObject(results[0], req.body)
 
-				save('post', post, function (err) {
+				save(post, function (err) {
 					if (err) throw err;
 
-					res.json(200, post);
+					res.json(200, recur.unescape(post));
 				})
-
-				
 			}
 		}
 	);
