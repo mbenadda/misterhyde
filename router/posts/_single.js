@@ -16,10 +16,9 @@ module.exports = function (req, res, next) {
 			} else if (results.length > 1) {
 				res.json(409)
 			} else {
-				response = recur.unescape(results[0]);
 
 				res.json(200, _.omit(
-					response,
+					recur.unescape(results[0]),
 					'index'));
 			}
 		})

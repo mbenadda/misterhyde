@@ -11,13 +11,18 @@ var extendObject = function (target, source) {
 	return target;
 }
 
+// Escape strings to store them in YAML.
+// They need to be contained in double quotes, especially the content one
+// So double quotes inside of them need to be replaced with HTML code equivalent
 var deepEscape = function (target) {
 
 	for (var prop in target) {
 		if (typeof target[prop] == 'object') {
 			deepEscape(target[prop]);
 		} else {
-			target[prop] = _.escape(target[prop]);
+			if (typeof target[prop] == 'string') {
+				target[prop] = target[prop].replace(/[^\\](")/g, '\\"');
+			}	
 		}
 	}
 
@@ -30,10 +35,11 @@ var deepUnescape = function (target) {
 		if (typeof target[prop] == 'object') {
 			deepUnescape(target[prop]);
 		} else {
-			target[prop] = _.unescape(target[prop]);
+			if (typeof target[prop] == 'string') {
+				target[prop] = target[prop].replace(/(\\")/g, '"');
+			}
 		}
 	}
-
 	return target;
 }
 

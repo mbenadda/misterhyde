@@ -7,7 +7,7 @@ var recur = require('../recur');
 
 var save = function (post, callback) {
 
-	recur.escape(post);
+	post = recur.escape(post);
 
 	// Remove added properties from the object
 	var cleanPost = clean(post);
@@ -22,8 +22,6 @@ var save = function (post, callback) {
 		+ '"', // Also " must be escaped in content
 		function (err) {
 			if (err) throw err;
-
-			recur.unescape(post);
 
 			if (callback) callback(null);
 		}

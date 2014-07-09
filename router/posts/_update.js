@@ -21,7 +21,10 @@ module.exports = function (req, res, next) {
 				save(post, function (err) {
 					if (err) throw err;
 
-					res.json(200, recur.unescape(post));
+					res.json(200, _.omit(
+						recur.unescape(post),
+						'index')
+					);
 				})
 			}
 		}
