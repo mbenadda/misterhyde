@@ -5,8 +5,12 @@ var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var path = require('path');
 
-var app = module.exports = express(); // Allow for circular dependencies as other modules will need access to app.
+// Allow for circular dependencies as other modules will need access to app.
+var app = module.exports = express();
 app.set('port', process.env.PORT || 3001);
+// Main app directory, for later use
+app.set('maindirectory', __dirname);
+
 app.use(express.static(path.join(__dirname, 'public')));
 	console.log(path.join(__dirname, 'public'));
 app.use(morgan('dev'));

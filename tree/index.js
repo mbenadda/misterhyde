@@ -1,5 +1,6 @@
 var async = require('async');
 
+var app = require('../app');
 var traverseDir = require('./_traverseDir');
 var yaml = require('./_yaml');
 var transform = require('./transform');
@@ -30,7 +31,7 @@ function walkTheSite (pathToJekyll, callback) {
 							key: _posts_index[i].substring(_posts_index[i].indexOf('_posts')+7, _posts_index[i].length-3),
 							meta: _posts_content[i][0] || null,
 							content: _posts_content[i][1],
-							index : _posts_index[i]
+							index : app.get('maindirectory') + _posts_index[i].substring(1, _posts_index[i].length)
 						})	
 
 					}
