@@ -17,9 +17,7 @@ var save = function (post, callback) {
 		'---\n' 
 		+ yaml.safeDump(cleanPost.meta)
 		+ '---\n'
-		+ '"' // This MUST BE DONE to prevent a simple colon to crash the whole app
-		+ post.content
-		+ '"', // Also " must be escaped in content
+		+ post.content,
 		function (err) {
 			if (err) throw err;
 

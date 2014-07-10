@@ -12,8 +12,7 @@ var extendObject = function (target, source) {
 }
 
 // Escape strings to store them in YAML.
-// They need to be contained in double quotes, especially the content one
-// So double quotes inside of them need to be replaced with HTML code equivalent
+// We need to remove colons (:) as they get interpreted by YAML as list initialization chars
 var deepEscape = function (target) {
 
 	for (var prop in target) {
@@ -21,7 +20,7 @@ var deepEscape = function (target) {
 			deepEscape(target[prop]);
 		} else {
 			if (typeof target[prop] == 'string') {
-				target[prop] = target[prop].replace(/[^\\](")/g, '\\"');
+				target[prop] = target[prop].replace(/:/g, '&#58;');
 			}	
 		}
 	}
@@ -36,7 +35,7 @@ var deepUnescape = function (target) {
 			deepUnescape(target[prop]);
 		} else {
 			if (typeof target[prop] == 'string') {
-				target[prop] = target[prop].replace(/(\\")/g, '"');
+				target[prop] = target[prop].replace(/(&#58;)/g, ':');
 			}
 		}
 	}
