@@ -9,18 +9,20 @@ function parse (file, callback) {
 			callback(null, 'dir');
 		} else if (stats.isFile()) {
 
-			var data = fs.readFileSync(file, 'utf-8');
-			var docs = [];
+			fs.readFile(file, 'utf-8', function (err, data) {
+				if (err) throw err;
 
-			try {
-				yaml.safeLoadAll(data, function (doc) {
-					docs.push(doc);
-				});
-				
-			} catch (e) {
-				throw e;
-			}
-			callback(null, docs);
+				var docs = [];
+
+				try {
+					yaml.safeLoadAll(data, function (doc) {
+						docs.push(doc);
+					});		
+				} catch (e) {
+					throw e;
+				}
+				callback(null, docs);
+			})
 		}
 	})
 }
