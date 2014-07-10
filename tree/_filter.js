@@ -1,4 +1,6 @@
 
+var app = require('../app');
+
 // List of blacklisted directories
 // Hardcoded for now, should be stored someplace later
 var blacklisted = [
@@ -16,9 +18,11 @@ var blacklisted = [
 
 //var regex = /node_modules|bower_components|_site|\/\./
 
-module.exports = function (command, pathToJekyll) {
+module.exports = function (command) {
 
 	var regex;
+	var pathToJekyll = app.get('pathToJekyll');
+
 	pathToJekyll = pathToJekyll.replace('.', '\\.');
 	pathToJekyll = pathToJekyll.replace('/', '\\/');
 

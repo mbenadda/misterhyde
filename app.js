@@ -10,6 +10,7 @@ var app = module.exports = express();
 app.set('port', process.env.PORT || 3001);
 // Main app directory, for later use
 app.set('maindirectory', __dirname);
+app.set('pathToJekyll', './example');
 
 app.use(express.static(path.join(__dirname, 'public')));
 	console.log(path.join(__dirname, 'public'));
@@ -25,7 +26,7 @@ if ('production' == env) {
     app.use(errorHandler());
 }
 
-var site = require('./tree')('./example', function (err, site) {
+var site = require('./tree')(app.get('pathToJekyll'), function (err, site) {
 	if (err) throw err;
 	app.set('jekyll', site)
 })
