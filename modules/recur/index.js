@@ -1,5 +1,6 @@
 var _ = require('underscore');
 
+// Unlike the underscore one, accepts only one source
 var extendObject = function (target, source) {
 	for (var prop in source) {
 		if (prop in target && typeof target[prop] == 'object') {

@@ -1,27 +1,21 @@
 var async = require('async');
 var fs = require('fs');
-
-var app = require('../../app');
+var _ = require('underscore');
 
 module.exports = function (req, res, next) {
 
-	async.filter(app.get('jekyll').posts,
-		function (item, callback) {
-			callback(item.key === req.postKey);
-		},
-		function (results) {
-			if (!results) {
-				res.json(404);
-			} else if (results.length > 1) {
-				res.json(400);
-			} else {
-				fs.unlink(results[0].index, function (err) {
-					if (err) throw err;
+	var jekyll = require('../../app').get('jekyll');
 
-					delete app.get('jekyll').posts[app.get('jekyll').posts.length-1];
-					res.json(200);
-				})
+	fs.unlink(req.post.index, function (err) {
+		if (err) throw err;
+
+		// Remove deleted post from jekyll object
+		jekyll.posts = _.reject(jekyll.posts,
+			function (item) {
+				if (item === req.post) return true;
 			}
-		}
-	)
+		);
+
+		res.json(200);
+	})
 }
