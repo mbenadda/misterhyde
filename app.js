@@ -25,9 +25,12 @@ if ('production' == env) {
     app.use(errorHandler());
 }
 
+var duration = new Date();
 var site = require('./tree')(app.get('pathToJekyll'), function (err, site) {
 	if (err) throw err;
 	app.set('jekyll', site)
+
+	console.log('Loaded full Jekyll tree in ' + (new Date() - duration) / 1000 + ' seconds.')
 })
 
 var router = require('./router')(app);
