@@ -15,5 +15,6 @@ router.param('post', function (req, res, next, postKey) {
 router.route('/:post')
 	.get(require('./_single'))
 	.post(require('./_update'))
+	.delete(require('./_delete'))
 
 module.exports = router;

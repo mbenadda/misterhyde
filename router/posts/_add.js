@@ -40,6 +40,7 @@ module.exports = function (req, res, next) {
 		save(post, function (err) {
 			if (err) throw err;
 
+			app.get('jekyll').posts.push(post);
 			res.json(_.omit(post, 'index'));
 		})	
 	}
