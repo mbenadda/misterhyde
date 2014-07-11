@@ -14,13 +14,13 @@ module.exports = function (req, res, next) {
 			if (!results) {
 				res.json(404);
 			} else if (results.length > 1) {
-				res.json(409)
+				res.json(400)
 			} else {
 
 				res.json(200, _.omit(
 					recur.unescape(results[0]),
 					'index'));
 			}
-		})
-
+		}
+	)
 }

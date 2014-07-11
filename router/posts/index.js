@@ -4,6 +4,7 @@ var router = express.Router();
 
 router.route('/')
 	.get(require('./_list'))
+	.post(require('./_add'))
 
 // If :post param is present, set req.post to the right post
 router.param('post', function (req, res, next, postKey) {
