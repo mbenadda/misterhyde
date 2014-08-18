@@ -6,8 +6,7 @@ var router = express.Router();
 var app = require('../../app')
 
 router.route('/:type')
-	.get(function (req, res, next) {
-		
+	.get(function (req, res, next) {	
 		async.concat(app.get('jekyll').posts,
 			function (item, callback) {
 				callback(null, item.meta[req.params.type])
@@ -15,7 +14,8 @@ router.route('/:type')
 			function (err, results) {
 				if (err) throw err;
 				res.json(200, _.uniq(results))
-			}) 
+			}
+		) 
 	})
 
 module.exports = router;
