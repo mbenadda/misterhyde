@@ -40,6 +40,10 @@ module.exports = function (command) {
 				+ '\\/\\_posts\\/'
 				, '');
 			break;
+
+		case '_settings':
+			regex = new RegExp(/_config\.yml$/g);
+			break;
 	
 	}
 

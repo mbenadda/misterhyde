@@ -10,7 +10,14 @@ var build = function (index, callback) {
 			require('./_posts')(index, function (err, posts) {
 				if (err) throw err;
 
-				callback(null, posts)
+				callback(null, posts);
+			})
+		},
+		settings: function (callback) {
+			require('./_settings')(index, function (err, settings) {
+				if (err) throw err;
+
+				callback(null, settings);
 			})
 		}
 	},
